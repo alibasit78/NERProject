@@ -1,4 +1,4 @@
 env/
 NER_Project.egg-info/
 awscliv2.zip
-aws
+aws/
