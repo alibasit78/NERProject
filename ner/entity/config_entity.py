@@ -30,3 +30,25 @@ class DataIngestionConfig:
     csv_data_file_path: str = os.path.join(
         data_ingestion_dir, DATA_INGESTION_FEATURE_STORE_DIR, CSV_FILE_NAME
     )
+    label_names_file_path: str = os.path.join(
+        data_ingestion_dir, DATA_INGESTION_FEATURE_STORE_DIR, LABEL_FILE_NAME
+    )
+
+
+@dataclass
+class DataTransformationConfig:
+    data_transformation_artifact_dir: str = os.path.join(
+        training_pipeline_config.artifact_dir, DATA_TRANSFORMATION_DIR
+    )
+    dataset_dict_path: str = os.path.join(data_transformation_artifact_dir, DATASET_DICT_DIR)
+    # data_test_file_path: str = os.path.join(data_transformation_artifact_dir, DATA_TEST_FILE_NAME)
+    # data_val_file_path: str = os.path.join(data_transformation_artifact_dir, DATA_VAL_FILE_NAME)
+    data_label_names_path: str = os.path.join(
+        data_transformation_artifact_dir, LABEL_NAMES_FILE_NAME
+    )
+    data_label_to_id_path: str = os.path.join(
+        data_transformation_artifact_dir, LABEL_TO_ID_FILE_NAME
+    )
+    data_id_to_label_path: str = os.path.join(
+        data_transformation_artifact_dir, ID_TO_LABEL_FILE_NAME
+    )

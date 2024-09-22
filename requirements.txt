@@ -6,4 +6,5 @@ transformers
 seqeval
 evaluate
 boto3
+datasets
 -e .
