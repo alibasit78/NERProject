@@ -26,6 +26,12 @@ LABEL_NAMES_FILE_NAME: str = "ordered_label_names.pkl"
 LABEL_TO_ID_FILE_NAME: str = "label_to_id.pkl"
 ID_TO_LABEL_FILE_NAME: str = "id_to_label.pkl"
 
+# Model Training constants
+MODEL_TRAINING_ARTIFACTS_DIR: str = "model_training"
+TOKENIZER_FILE_NAME: str = ""
+MODEL_CHECKPOINT: str = "bert-base-cased"
+SAVED_MODEL_NAME: str = "model.bin"
+
 
 DATA_INGESTED_TRAIN_TEST_SPLIT_RATIO: float = 0.2
 DATA_INGESTED_TRAIN_VAL_SPLIT_RATIO: float = 0.1

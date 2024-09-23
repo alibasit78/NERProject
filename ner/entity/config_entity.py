@@ -52,3 +52,16 @@ class DataTransformationConfig:
     data_id_to_label_path: str = os.path.join(
         data_transformation_artifact_dir, ID_TO_LABEL_FILE_NAME
     )
+
+
+class ModelTrainingConfig:
+    model_training_artifact_dir: str = os.path.join(
+        training_pipeline_config.artifact_dir, MODEL_TRAINING_ARTIFACTS_DIR
+    )
+    tokenizer_file_path: str = os.path.join(
+        model_training_artifact_dir, PRE_TRAINED_MODEL_CHECKPOINT_NAME
+    )
+    model_file_path: str = os.path.join(model_training_artifact_dir, SAVED_MODEL_NAME)
+    model_checkpoint_path: str = os.path.join(
+        model_training_artifact_dir, PRE_TRAINED_MODEL_CHECKPOINT_NAME
+    )

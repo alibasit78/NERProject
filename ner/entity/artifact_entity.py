@@ -13,3 +13,9 @@ class DataTransformationArtifact:
     data_label_names_path: str
     data_label_to_id_path: str
     data_id_to_label_path: str
+
+
+@dataclass
+class ModelTrainingArtifacts:
+    model_file_path: str
+    tokenizer_file_path: str

@@ -5,6 +5,7 @@ input:
     raw_data
 output:
     proper_data (cleaned_data)
+
 2. Data Transformation
 input:
     proper_data
@@ -14,6 +15,7 @@ output:
     val_data
     label2id
     id2label
+
 3. model_trainer
 input:
     train_data
