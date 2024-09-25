@@ -7,4 +7,5 @@ seqeval
 evaluate
 boto3
 datasets
+accelerate
 -e .

@@ -29,9 +29,17 @@ ID_TO_LABEL_FILE_NAME: str = "id_to_label.pkl"
 # Model Training constants
 MODEL_TRAINING_ARTIFACTS_DIR: str = "model_training"
 TOKENIZER_FILE_NAME: str = ""
-MODEL_CHECKPOINT: str = "bert-base-cased"
+PRE_TRAINED_MODEL_CHECKPOINT_NAME: str = "bert-base-cased"
 SAVED_MODEL_NAME: str = "model.bin"
+ACCUMULATE_STEPS: int = 8
+BATCH_SIZE: int = 8
+LEARNING_RATE: float = 1e-5
+WEIGHT_DECAY: float = 0.01
+EPOCHS: int = 2
+SAVE_TOTAL_LIMIT: int = 1
 
+# Model Evaluation constants
+MODEL_EVAL_DIR: str = "model_evaluation"
 
 DATA_INGESTED_TRAIN_TEST_SPLIT_RATIO: float = 0.2
 DATA_INGESTED_TRAIN_VAL_SPLIT_RATIO: float = 0.1

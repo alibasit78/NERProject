@@ -54,7 +54,14 @@ class DataTransformationConfig:
     )
 
 
+@dataclass
 class ModelTrainingConfig:
+    accumulate_steps: int = ACCUMULATE_STEPS
+    batch_size: int = BATCH_SIZE
+    learning_rate: float = LEARNING_RATE
+    weight_decay: float = WEIGHT_DECAY
+    save_total_limit: int = SAVE_TOTAL_LIMIT
+    epochs: int = EPOCHS
     model_training_artifact_dir: str = os.path.join(
         training_pipeline_config.artifact_dir, MODEL_TRAINING_ARTIFACTS_DIR
     )
@@ -62,6 +69,11 @@ class ModelTrainingConfig:
         model_training_artifact_dir, PRE_TRAINED_MODEL_CHECKPOINT_NAME
     )
     model_file_path: str = os.path.join(model_training_artifact_dir, SAVED_MODEL_NAME)
-    model_checkpoint_path: str = os.path.join(
-        model_training_artifact_dir, PRE_TRAINED_MODEL_CHECKPOINT_NAME
+    model_checkpoint_path: str = PRE_TRAINED_MODEL_CHECKPOINT_NAME
+
+
+@dataclass
+class ModelEvalConfig:
+    model_evaluation_artifact_dir: str = os.path.join(
+        training_pipeline_config.artifact_dir, MODEL_EVAL_DIR
     )

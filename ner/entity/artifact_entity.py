@@ -17,5 +17,10 @@ class DataTransformationArtifact:
 
 @dataclass
 class ModelTrainingArtifacts:
-    model_file_path: str
-    tokenizer_file_path: str
+    model_saved_dir: str
+    model_checkpoint_name: str
+
+
+@dataclass
+class ModelEvalArtifact:
+    model_eval_artifact_dir: str

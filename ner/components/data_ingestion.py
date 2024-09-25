@@ -65,6 +65,7 @@ class DataIngestion:
             dataframe["tokens"] = dataframe["Sentence"].apply(lambda x: x.split("[SEP]"))
             dataframe["Sentence"] = dataframe["Sentence"].apply(lambda x: x.replace("[SEP]", " "))
             dataframe["ner_tags"] = dataframe["ner_tags"].apply(lambda x: x.split("[SEP]"))
+            dataframe = dataframe[:1000]
             logging.info(f"prepared data elapsed time: {(e_time - s_time)/60}")
             os.makedirs(
                 os.path.dirname(self.data_ingestion_config.csv_data_file_path), exist_ok=True
