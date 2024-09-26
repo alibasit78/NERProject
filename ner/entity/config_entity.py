@@ -77,3 +77,10 @@ class ModelEvalConfig:
     model_evaluation_artifact_dir: str = os.path.join(
         training_pipeline_config.artifact_dir, MODEL_EVAL_DIR
     )
+
+
+@dataclass
+class ModelPredConfig:
+    best_model_dir: str = os.path.join(
+        training_pipeline_config.artifact_dir, MODEL_TRAINING_ARTIFACTS_DIR
+    )
