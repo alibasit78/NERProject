@@ -53,7 +53,7 @@ class ModelEvaluation:
         labels = labels.detach().cpu().clone().numpy()
 
         # Remove ignored index (special tokens) and convert to labels
-        true_labels = [[label_names[l] for l in label if l != -100] for label in labels]
+        true_labels = [[label_names[ll] for ll in label if ll != -100] for label in labels]
         true_predictions = [
             [label_names[p] for (p, l) in zip(prediction, label) if l != -100]
             for prediction, label in zip(predictions, labels)
