@@ -35,7 +35,7 @@ ACCUMULATE_STEPS: int = 8
 BATCH_SIZE: int = 8
 LEARNING_RATE: float = 1e-5
 WEIGHT_DECAY: float = 0.01
-EPOCHS: int = 2
+EPOCHS: int = 3
 SAVE_TOTAL_LIMIT: int = 1
 
 # Model Evaluation constants
@@ -43,3 +43,7 @@ MODEL_EVAL_DIR: str = "model_evaluation"
 
 DATA_INGESTED_TRAIN_TEST_SPLIT_RATIO: float = 0.2
 DATA_INGESTED_TRAIN_VAL_SPLIT_RATIO: float = 0.1
+
+# app configuration
+APP_HOST = "0.0.0.0"
+APP_PORT = 8080

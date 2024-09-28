@@ -12,7 +12,7 @@ class ModelPredictor:
     def __init__(self) -> None:
         self.model_pred_config = ModelPredConfig()
 
-    def initiate_model_predicctor(self, input_sentence: str):
+    def initiate_model_predictor(self, input_sentence: str):
         try:
             logging.info("Started model prediction")
             os.makedirs(self.model_pred_config.best_model_dir, exist_ok=True)
@@ -23,11 +23,14 @@ class ModelPredictor:
                 aggregation_strategy="simple",
             )
             # Example sentence: "My name is Sylvain and I work at Hugging Face in Brooklyn."
+            print("checkpoint_dir: ", checkpoint_dir)
             output = None
             if input_sentence.strip() == "":
                 print("Empty input passed")
             else:
+                # print(token_classifier)
                 output = token_classifier(input_sentence)
             print(f"Result: {output}")
+            return input_sentence, output
         except Exception as e:
             raise NERException(e, sys) from e
