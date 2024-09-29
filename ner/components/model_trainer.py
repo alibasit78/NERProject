@@ -79,7 +79,7 @@ class ModelTraining:
             predictions = np.argmax(logits, axis=-1)
 
             # Remove ignored index (special tokens) and convert to labels
-            true_labels = [[label_names[l] for l in label if l != -100] for label in labels]
+            true_labels = [[label_names[ll] for ll in label if ll != -100] for label in labels]
             true_predictions = [
                 [label_names[p] for (p, l) in zip(prediction, label) if l != -100]
                 for prediction, label in zip(predictions, labels)
@@ -104,7 +104,7 @@ class ModelTraining:
             )
 
             tokenizer = AutoTokenizer.from_pretrained(
-                self.model_trainer_config.model_checkpoint_path
+                self.model_trainer_config.model_checkpoint_name
             )
             logging.info("tokenizer is downloaded")
 
@@ -130,7 +130,7 @@ class ModelTraining:
             )
 
             model = AutoModelForTokenClassification.from_pretrained(
-                self.model_trainer_config.model_checkpoint_path,
+                self.model_trainer_config.model_checkpoint_name,
                 id2label=id2label,
                 label2id=label2id,
             )
@@ -171,7 +171,7 @@ class ModelTraining:
             logging.info(f"trainer_output: {trainer_output}")
             model_traineing_artifact = ModelTrainingArtifacts(
                 model_saved_dir=self.model_trainer_config.model_training_artifact_dir,
-                model_checkpoint_name=self.model_trainer_config.model_checkpoint_path,
+                model_checkpoint_name=self.model_trainer_config.model_checkpoint_name,
             )
             logging.info("Exiting the initiate_model_training method of ModelTraining")
             return model_traineing_artifact

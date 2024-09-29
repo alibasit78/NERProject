@@ -48,8 +48,7 @@ async def training():
 async def predict_route(text: str):
     try:
         prediction_pipeline = ModelPredictor()
-
-        sentence, labels = prediction_pipeline.initiate_model_predictor(input_sentence=text)
+        sentence, labels = await prediction_pipeline.initiate_model_predictor(input_sentence=text)
         outputs = labels[0]
         return {
             "sentence": sentence,

@@ -46,7 +46,7 @@ data_transformation_artifact = DataTransformationArtifact(
 model_training_config = ModelTrainingConfig()
 model_training_artifact = ModelTrainingArtifacts(
     model_saved_dir=model_training_config.model_training_artifact_dir,
-    model_checkpoint_name=model_training_config.model_checkpoint_path,
+    model_checkpoint_name=model_training_config.model_checkpoint_name,
 )
 model_evaluation = ModelEvaluation(
     data_transformation_artifact=data_transformation_artifact,

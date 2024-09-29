@@ -23,7 +23,6 @@ class ModelPredictor:
                 aggregation_strategy="simple",
             )
             # Example sentence: "My name is Sylvain and I work at Hugging Face in Brooklyn."
-            print("checkpoint_dir: ", checkpoint_dir)
             output = None
             if input_sentence.strip() == "":
                 print("Empty input passed")

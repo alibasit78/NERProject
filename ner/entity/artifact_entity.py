@@ -24,3 +24,9 @@ class ModelTrainingArtifacts:
 @dataclass
 class ModelEvalArtifact:
     model_eval_artifact_dir: str
+
+
+@dataclass
+class ModelPusherArtifact:
+    bucket_name: str
+    s3_model_path: str
