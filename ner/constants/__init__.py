@@ -1,6 +1,6 @@
 # AWS Credentials
-AWS_ACCESS_KEY_ID_ENV_KEY = ""
-AWS_SECRET_ACCESS_KEY_ENV_KEY = ""
+AWS_ACCESS_KEY_ID_ENV_KEY = "AKIAS2VS4TFAC4J4VMVG"
+AWS_SECRET_ACCESS_KEY_ENV_KEY = "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"
 REGION_NAME = "us-east-1"
 
 DATA_DIR = "data"
@@ -40,15 +40,19 @@ SAVE_TOTAL_LIMIT: int = 1
 
 # Model Evaluation constants
 MODEL_EVAL_DIR: str = "model_evaluation"
+MODEL_EVAL_THR_SCORE: float = 0.0
 
 DATA_INGESTED_TRAIN_TEST_SPLIT_RATIO: float = 0.2
 DATA_INGESTED_TRAIN_VAL_SPLIT_RATIO: float = 0.1
 
 # Model Pusher constants
 MODEL_BUCKET_NAME: str = "ner-data-20"
-MODEL_SAVED_DIR: str = "saved_model_dir"
-# AWS_MODEL_NAME: str = "model.safetensors"
-# AWS_MODEL_NAME: str = "config.json"
+S3_MODEL_SAVED_DIR: str = "saved_model_dir"
+
+# Saved Model Names
+MODEL_NAME: str = "model.safetensors"
+MODEL_CONFIG_NAME: str = "config.json"
+TOKENIZER_NAME: str = "tokenizer.json"
 # app configuration
 APP_HOST = "0.0.0.0"
 APP_PORT = 8080

@@ -1,5 +1,7 @@
 import os
 import sys
+
+# from dataclasses import dataclass
 from functools import partial
 
 import datasets
@@ -21,6 +23,15 @@ from ner.entity.artifact_entity import (
 from ner.entity.config_entity import ModelEvalConfig
 from ner.exception import NERException
 from ner.logger import logging
+
+# @dataclass
+# class ModelEvalResponse:
+#     trained_model_f1_score: float
+#     trained_model_prec_score: float
+#     trained_model_recall_score: float
+#     trained_model_acc_score: float
+#     best_model_f1_score: float
+#     difference: float
 
 
 class ModelEvaluation:
@@ -121,8 +132,13 @@ class ModelEvaluation:
             label_names = self.data_transformation_artifact.data_label_names_path
             _ = ModelEvaluation.evaluate(model, test_dataloader, device, label_names, metric)
             logging.info("Exited the initiate_model_evaluation method")
+            # TODO: logic to choose best model by comparing the models of the current trained model and saved model at S3
             return ModelEvalArtifact(
-                model_eval_artifact_dir=self.model_evaluation_config.model_evaluation_artifact_dir
+                is_model_accepted=True,
+                changed_accuracy=0.0,
+                s3_model_path=self.model_evaluation_config.s3_model_dir,
+                trained_model_path=self.model_training_artifact.model_saved_dir,
+                model_eval_artifact_dir=self.model_evaluation_config.model_evaluation_artifact_dir,
             )
         except Exception as e:
             raise NERException(e, sys)

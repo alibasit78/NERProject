@@ -1,0 +1,3 @@
+END-TO-END MLOPS NER SOLUTION : FASTAPI, GITHUB ACTIONS, AND AWS EC2
+
+Developed a scalable NER system to extract entity phrases with types, following MLOps best practices. Built API pipe-lines for training and prediction using FastAPI, with automated CI/CD workflows via GitHub Actions. The system was containerized using Docker and deployed on AWS using EC2 instances, ensuring seamless deployment and scalability.

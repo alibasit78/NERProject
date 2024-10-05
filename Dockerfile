@@ -6,6 +6,7 @@ FROM python:3.11
 WORKDIR /NERproject_container
 
 COPY ./requirements.txt /NERproject_container/requirements.txt
+
 COPY ./setup.py /NERproject_container/setup.py
 
 RUN pip install -r /NERproject_container/requirements.txt

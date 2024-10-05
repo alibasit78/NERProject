@@ -1,6 +1,7 @@
 import os
 import pickle
 import sys
+from dataclasses import dataclass
 from io import StringIO
 from typing import (
     List,
@@ -16,8 +17,20 @@ from pandas import (
 )
 
 from ner.configuration.aws_connection import S3Client
+from ner.constants import (
+    MODEL_CONFIG_NAME,
+    MODEL_NAME,
+    TOKENIZER_NAME,
+)
 from ner.exception import NERException
 from ner.logger import logging
+
+
+@dataclass
+class S3UrlResponse:
+    config_url: str
+    model_url: str
+    tokenizer_url: str
 
 
 class SimpleStorageService:
@@ -112,6 +125,33 @@ class SimpleStorageService:
 
             return file_objs
 
+        except Exception as e:
+            raise NERException(e, sys) from e
+
+    def generate_presigned_url(self, bucket_name, object_key, expiration=3600):
+        """
+        Generate a pre-signed URL for a file in S3.
+        Args:
+        - bucket_name: Name of the S3 bucket.
+        - object_key: The S3 object key (file path in the bucket).
+        - expiration: URL expiration time in seconds (default is 1 hour).
+        """
+        # s3 = boto3.client('s3')
+        return self.s3_client.generate_presigned_url(
+            "get_object", Params={"Bucket": bucket_name, "Key": object_key}, ExpiresIn=expiration
+        )
+
+    def get_model_urls(self, bucket_name: str, s3_model_dir: str):
+        logging.info("Enterted the load_model_urls of S3Operations class")
+        try:
+
+            # Step 2: Generate pre-signed URLs for each required file
+            config_url = self.generate_presigned_url(bucket_name, s3_model_dir + MODEL_CONFIG_NAME)
+            model_url = self.generate_presigned_url(bucket_name, s3_model_dir + MODEL_NAME)
+            tokenizer_url = self.generate_presigned_url(bucket_name, s3_model_dir + TOKENIZER_NAME)
+            return S3UrlResponse(
+                config_url=config_url, model_url=model_url, tokenizer_url=tokenizer_url
+            )
         except Exception as e:
             raise NERException(e, sys) from e
 

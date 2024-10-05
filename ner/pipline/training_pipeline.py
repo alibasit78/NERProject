@@ -3,17 +3,20 @@ import sys
 from ner.components.data_ingestion import DataIngestion
 from ner.components.data_transformation import DataTransformation
 from ner.components.model_evaluation import ModelEvaluation
+from ner.components.model_pusher import ModelPusher
 from ner.components.model_trainer import ModelTraining
 from ner.entity.artifact_entity import (
     DataIngestionArtifact,
     DataTransformationArtifact,
     ModelEvalArtifact,
+    ModelPusherArtifact,
     ModelTrainingArtifacts,
 )
 from ner.entity.config_entity import (
     DataIngestionConfig,
     DataTransformationConfig,
     ModelEvalConfig,
+    ModelPusherConfig,
     ModelTrainingConfig,
 )
 from ner.exception import NERException
@@ -26,6 +29,7 @@ class TrainPipeline:
         self.data_transformation_config = DataTransformationConfig()
         self.model_training_config = ModelTrainingConfig()
         self.model_evaluation_config = ModelEvalConfig()
+        self.model_pusher_config = ModelPusherConfig()
 
     def start_data_ingestion(self) -> DataIngestionArtifact:
         logging.info("Entered the start_data_ingestion method of TrainPipeline class")
@@ -94,6 +98,19 @@ class TrainPipeline:
         except Exception as e:
             raise NERException(e, sys) from e
 
+    def start_model_pusher(self, model_eval_artifact: ModelEvalArtifact) -> ModelPusherArtifact:
+        try:
+            logging.info("Started model pushing to Cloud (AWS)")
+            model_pusher = ModelPusher(
+                model_eval_artifact=model_eval_artifact,
+                model_pusher_config=self.model_pusher_config,
+            )
+            model_pusher_artifact = model_pusher.initiate_model_pusher()
+            logging.info("Exited the start model pusher method")
+            return model_pusher_artifact
+        except Exception as e:
+            raise NERException(e, sys)
+
     def run_pipeline(self) -> None:
         try:
             logging.info("Started Model training >>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
@@ -104,10 +121,11 @@ class TrainPipeline:
             model_trainer_artifact = self.start_model_training(
                 data_transformation_artifact=data_transformation_artifact
             )
-            _ = self.start_model_evaluation(
+            model_eval_artifact = self.start_model_evaluation(
                 data_transformation_artifact=data_transformation_artifact,
                 model_trainer_artifact=model_trainer_artifact,
             )
+            _ = self.start_model_pusher(model_eval_artifact=model_eval_artifact)
 
         except Exception as e:
             raise NERException(e, sys) from e

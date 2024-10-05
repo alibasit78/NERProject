@@ -77,6 +77,9 @@ class ModelEvalConfig:
     model_evaluation_artifact_dir: str = os.path.join(
         training_pipeline_config.artifact_dir, MODEL_EVAL_DIR
     )
+    changed_thr_score: float = MODEL_EVAL_THR_SCORE
+    bucket_name: str = MODEL_BUCKET_NAME
+    s3_model_dir: str = S3_MODEL_SAVED_DIR
 
 
 @dataclass
@@ -84,9 +87,11 @@ class ModelPredConfig:
     best_model_dir: str = os.path.join(
         training_pipeline_config.artifact_dir, MODEL_TRAINING_ARTIFACTS_DIR
     )
+    bucket_name: str = MODEL_BUCKET_NAME
+    s3_model_dir: str = S3_MODEL_SAVED_DIR
 
 
 @dataclass
 class ModelPusherConfig:
     bucket_name: str = MODEL_BUCKET_NAME
-    s3_model_dir: str = MODEL_SAVED_DIR
+    s3_model_dir: str = S3_MODEL_SAVED_DIR

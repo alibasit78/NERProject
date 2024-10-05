@@ -1,9 +1,9 @@
 import sys
 
 from ner.cloud_storage.aws_storage import SimpleStorageService
-from ner.entity.artifact_entity import (
+from ner.entity.artifact_entity import (  # ModelTrainingArtifacts,
+    ModelEvalArtifact,
     ModelPusherArtifact,
-    ModelTrainingArtifacts,
 )
 from ner.entity.config_entity import ModelPusherConfig
 
@@ -15,7 +15,7 @@ from ner.logger import logging
 class ModelPusher:
     def __init__(
         self,
-        model_training_artifact: ModelTrainingArtifacts,
+        model_eval_artifact: ModelEvalArtifact,
         model_pusher_config: ModelPusherConfig,
     ):
         """
@@ -23,7 +23,7 @@ class ModelPusher:
         :param model_pusher_config: Configuration for model pusher
         """
         self.s3 = SimpleStorageService()
-        self.model_training_artifact = model_training_artifact
+        self.model_eval_artifact = model_eval_artifact
         self.model_pusher_config = model_pusher_config
         # self.usvisa_estimator = USvisaEstimator(
         #     bucket_name=model_pusher_config.bucket_name,
@@ -58,7 +58,7 @@ class ModelPusher:
             #     remove=False,
             # )
             self.s3.upload_directory_to_s3(
-                directory_path=self.model_training_artifact.model_saved_dir,
+                directory_path=self.model_eval_artifact.trained_model_path,
                 bucket_name=self.model_pusher_config.bucket_name,
                 s3_folder=self.model_pusher_config.s3_model_dir,
             )
