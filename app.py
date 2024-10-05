@@ -48,7 +48,7 @@ async def training():
 async def predict_route(text: str):
     try:
         prediction_pipeline = ModelPredictor()
-        sentence, labels = await prediction_pipeline.initiate_model_predictor(input_sentence=text)
+        sentence, labels = prediction_pipeline.initiate_model_predictor(input_sentence=text)
         outputs = labels[0]
         return {
             "sentence": sentence,
@@ -63,5 +63,5 @@ async def predict_route(text: str):
         return Response(f"Error Occurred! {e}")
 
 
-if __name__ == "__main__":
-    app_run(app, host=APP_HOST, port=APP_PORT)
+# if __name__ == "__main__":
+#     app_run(app, host=APP_HOST, port=APP_PORT)

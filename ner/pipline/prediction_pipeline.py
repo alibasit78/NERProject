@@ -16,6 +16,7 @@ class ModelPredictor:
         try:
             logging.info("Started model prediction")
             os.makedirs(self.model_pred_config.best_model_dir, exist_ok=True)
+            logging.info(f"best model dir: {self.model_pred_config.best_model_dir}")
             checkpoint_dir = os.listdir(self.model_pred_config.best_model_dir)[0]
             token_classifier = pipeline(
                 "token-classification",
