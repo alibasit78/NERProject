@@ -1,7 +1,7 @@
 # AWS Credentials
 AWS_ACCESS_KEY_ID_ENV_KEY = ""
 AWS_SECRET_ACCESS_KEY_ENV_KEY = ""
-REGION_NAME = ""
+REGION_NAME = "us-east-1"
 
 DATA_DIR = "data"
 SEED = 42  # seed for reproducing data
