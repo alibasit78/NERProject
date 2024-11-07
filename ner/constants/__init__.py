@@ -1,6 +1,6 @@
 # AWS Credentials
-AWS_ACCESS_KEY_ID_ENV_KEY = ""
-AWS_SECRET_ACCESS_KEY_ENV_KEY = ""
+AWS_ACCESS_KEY_ID_ENV_KEY = "AKIAS2VS4TFAC4J4VMVG"
+AWS_SECRET_ACCESS_KEY_ENV_KEY = "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"
 REGION_NAME = "us-east-1"
 
 DATA_DIR = "data"
@@ -53,6 +53,11 @@ S3_MODEL_SAVED_DIR: str = "saved_model_dir"
 MODEL_NAME: str = "model.safetensors"
 MODEL_CONFIG_NAME: str = "config.json"
 TOKENIZER_NAME: str = "tokenizer.json"
+
 # app configuration
 APP_HOST = "0.0.0.0"
 APP_PORT = 8080
+
+# Model Pred Constants
+VM_MODEL_DIR: str = "model_dir"
+IS_MODEL_IN_LOCAL: bool = False

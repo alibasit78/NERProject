@@ -89,6 +89,8 @@ class ModelPredConfig:
     )
     bucket_name: str = MODEL_BUCKET_NAME
     s3_model_dir: str = S3_MODEL_SAVED_DIR
+    local_dir: str = os.path.join(training_pipeline_config.artifact_dir, VM_MODEL_DIR)
+    is_model_in_local: bool = IS_MODEL_IN_LOCAL
 
 
 @dataclass

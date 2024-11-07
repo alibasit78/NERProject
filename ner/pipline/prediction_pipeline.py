@@ -23,41 +23,31 @@ class ModelPredictor:
         self.model_pred_config = ModelPredConfig()
         self.s3 = SimpleStorageService()
 
-    def get_model(self, is_model_in_local=False):
-        if is_model_in_local:
+    def get_model_path(self):
+        if self.model_pred_config.is_model_in_local:
             checkpoint_dir = os.listdir(self.model_pred_config.best_model_dir)[0]
             model_path = os.path.join(self.model_pred_config.best_model_dir, checkpoint_dir)
-            tokenizer_path = os.path.join(
-                self.model_pred_config.best_model_dir,
-                checkpoint_dir,
-            )
-            # config_path = os.path.join(
-            #     self.model_pred_config.best_model_dir, checkpoint_dir, MODEL_CONFIG_NAME
-            # )
+            return model_path
         else:
-            s3_url_response = self.s3.get_model_urls(
+            self.s3.download_dir(
                 bucket_name=self.model_pred_config.bucket_name,
-                s3_model_dir=self.model_pred_config.s3_model_dir,
+                dir_prefix=self.model_pred_config.s3_model_dir,
+                dest_local_dir=self.model_pred_config.local_dir,
             )
-            model_path, tokenizer_path, config_path = (
-                s3_url_response.model_url,
-                s3_url_response.tokenizer_url,
-                s3_url_response.config_url,
-            )
-        model = AutoModel.from_pretrained(model_path)
-        tokenizer = AutoTokenizer.from_pretrained(tokenizer_path)
-        return model, tokenizer
+            checkpoint_dir = os.listdir(self.model_pred_config.local_dir)[0]
+            return os.path.join(self.model_pred_config.local_dir, checkpoint_dir)
 
     def initiate_model_predictor(self, input_sentence: str):
         try:
             logging.info("Started model prediction")
             os.makedirs(self.model_pred_config.best_model_dir, exist_ok=True)
             logging.info(f"best model dir: {self.model_pred_config.best_model_dir}")
-            checkpoint_dir = os.listdir(self.model_pred_config.best_model_dir)[0]
+            # checkpoint_dir = os.listdir(self.model_pred_config.best_model_dir)[0]
             # model, tokenizer = self.get_model(is_model_in_local=True)
+            model_path = self.get_model_path()
             token_classifier = pipeline(
                 "token-classification",
-                model=os.path.join(self.model_pred_config.best_model_dir, checkpoint_dir),
+                model=model_path,
                 # tokenizer=tokenizer,
                 aggregation_strategy="simple",
             )

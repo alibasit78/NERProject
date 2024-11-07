@@ -51,6 +51,20 @@ class SimpleStorageService:
         except Exception as e:
             raise NERException(e, sys)
 
+    def download_dir(self, bucket_name: str, dir_prefix: str, dest_local_dir):
+        # Ensure the local directory exists
+        os.makedirs(dest_local_dir, exist_ok=True)
+
+        # List and download all files in the model directory
+        response = self.s3_client.list_objects_v2(Bucket=bucket_name, Prefix=dir_prefix)
+        for obj in response.get("Contents", []):
+            file_key = obj["Key"]
+            file_name = file_key.split("/")[-1]  # Extract the filename from the S3 key
+            local_file_path = os.path.join(dest_local_dir, file_name)
+
+            print(f"Downloading {file_key} to {local_file_path}")
+            self.s3_client.download_file(bucket_name, file_key, local_file_path)
+
     @staticmethod
     def read_object(
         object_name: str, decode: bool = True, make_readable: bool = False
